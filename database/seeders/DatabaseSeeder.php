@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
            'email' => 'vm@gmail.com',
-           'password' => bcrypt('myPassword')
+           'password' => bcrypt('123'),
+            'otpEnabled' => true
         ]);
 
         User::factory()->create([
             'email' => 'zj@gmail.com',
-            'password' => bcrypt('yourPassword')
+            'password' => bcrypt('123'),
+                        'otpEnabled' => false
         ]);
     }
 }

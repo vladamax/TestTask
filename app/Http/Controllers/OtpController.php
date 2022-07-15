@@ -17,10 +17,13 @@ class OtpController extends Controller
            'otp' => 'required'
         ]);
 
+        $attributes = ['email' => request('email') , 'password' => request('password')];
         if(request('otp') == 111111)
         {
-            return view('home');
+            auth()->attempt($attributes);
+            return redirect('/');
         }
-        return back()->withInput()->withErrors(['otp' => 'OTP not correct']);
+        return back()->withInput()->with('attributes',$attributes)->withErrors(['otp' => 'OTP not correct']);
     }
+
 }

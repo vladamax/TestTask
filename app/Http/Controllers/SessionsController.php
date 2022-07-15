@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class SessionsController extends Controller
 {
     public function create()
@@ -18,11 +16,15 @@ class SessionsController extends Controller
            'password' => 'required'
         ]);
 
-        if(auth()->attempt($attributes))
+        if(auth()->once($attributes))
         {
-            return redirect('/otp');
+            if(auth()->user()->otpEnabled)
+            {
+                return redirect('/otp')->with('attributes', $attributes);
+            }
+            auth()->attempt($attributes);
+            return redirect('/');
         }
-
         return back()->withInput()->with('logInMessage' , 'LogIn failed');
     }
 }

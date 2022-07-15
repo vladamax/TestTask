@@ -1,4 +1,4 @@
-@props(['name' , 'type' => 'text'])
+@props(['name' , 'type'])
 
 <x-form.label name="{{ $name }}"/>
 
